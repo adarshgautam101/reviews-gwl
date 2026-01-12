@@ -1,0 +1,79 @@
+{% comment %}
+  ================ Star Rating with Reviews Section ================
+
+  This section displays star ratings and reviews for a product,
+  includes a review submission form, and manages pagination.
+  Star colors are controlled via an external Shopify App's settings API.
+
+  ======================================================
+{% endcomment %}
+
+{% liquid
+  assign product = block.settings.product
+  assign avg_rating_initial = product.metafields.reviews.rating.value | round: 1 | default: 0
+  assign review_count_initial = product.metafields.reviews.count.value | default: 0
+%}
+
+<div class="star-rating-block loading" data-product-id="{{ product.id }}" data-shop="{{ shop.permanent_domain }}">
+  <div class="rating-header">
+    <div class="rating-left">
+      <span class="rating-label">Rating</span>
+      <span class="stars-container">
+      </span>
+      <span class="average-rating">
+        {% if review_count_initial > 0 %}
+          {{ avg_rating_initial }}
+        {% else %}
+          No reviews yet
+        {% endif %}
+      </span>
+    </div>
+    <div class="rating-right">
+      <button type="button" class="write-review-btn">
+        {{ 'ratings.reviews.write' | t }}
+      </button>
+    </div>
+  </div>
+
+  <div class="reviews-summary">
+    <span class="review-count">{{ review_count_initial }} reviews</span>
+  </div>
+
+  <div class="reviews-container">
+    <div class="reviews-list">
+      <p class="loading-reviews">{{ 'ratings.reviews.loading' | t }}</p>
+    </div>
+
+    <div class="reviews-footer" style="display: none;">
+      <div class="pagination-controls">
+        <button class="prev-page" disabled>&larr; Previous</button>
+        <span class="page-indicator">Page 1</span>
+        <button class="next-page">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'review-form', product: product %}
+
+
+{% render 'submission-message' %}
+
+
+{{ 'star-rating.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'star-rating.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Star Rating with Reviews",
+  "target": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "autofill": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,100 @@
+{% comment %}
+  Customer review slider/grid displaying all approved testimonials
+{% endcomment %}
+
+<div class="review-slider-block loading"
+  data-section-id="{{ section.id }}"
+  data-api-url="/apps/productreview/api/settings"
+  data-shop="{{ shop.permanent_domain }}"
+>
+  <div class="review-slider-header">
+    <h2 class="section-title" id="review-section-title">{{ section.settings.heading_text }}</h2> 
+    <div class="average-rating-summary">
+      <span class="summary-label">{{ section.settings.rating_label }}</span>
+      <span class="summary-stars-container"></span>
+      <span class="summary-average-rating">0.0</span>
+    </div>
+    <p class="summary-review-count">
+      {{ section.settings.based_on_text }} <span class="review-count-value">0</span> {{ section.settings.reviews_text }}
+    </p>
+  </div>
+
+  {% comment %} Slider Layout {% endcomment %}
+  <div class="review-carousel-container" style="display: none;">
+    <button type="button" class="carousel-arrow carousel-arrow-left" aria-label="Previous reviews" style="display: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    <div class="review-carousel-track-wrapper">
+      <div class="review-carousel-track">
+        <p class="loading-reviews-slider">Loading reviews...</p>
+      </div>
+    </div>
+    <button type="button" class="carousel-arrow carousel-arrow-right" aria-label="Next reviews" style="display: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+
+  {% comment %} Grid Layout {% endcomment %}
+  <div class="review-grid-container" style="display: none;">
+    <div class="review-grid">
+      <p class="loading-reviews-slider">Loading reviews...</p>
+    </div>
+    {% comment %} Grid Pagination Buttons {% endcomment %}
+    <div class="grid-pagination" style="display: none;">
+      <button type="button" class="grid-pagination-btn grid-pagination-prev" aria-label="Previous page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <button type="button" class="grid-pagination-btn grid-pagination-next" aria-label="Next page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Review Popup Modal -->
+{% render 'review-popup' %}
+
+{{ 'review-slider.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'review-slider.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Review Display",
+  "target": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "CUSTOMER TESTIMONIALS"
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Rating Label",
+      "default": "Excellent"
+    },
+    {
+      "type": "text",
+      "id": "based_on_text",
+      "label": "Based on Text",
+      "default": "Based on"
+    },
+    {
+      "type": "text",
+      "id": "reviews_text",
+      "label": "Reviews Text",
+      "default": "reviews"
+    }
+  ]
+}
+{% endschema %}

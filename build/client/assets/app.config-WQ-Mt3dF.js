@@ -1,0 +1,1 @@
+const s={IMAGES:{PLACEHOLDER_BASE_URL:"https://placehold.co/80x80/f6f6f7/6d7175",FALLBACK_THUMBNAIL:"https://via.placeholder.com/80",getPlaceholderUrl:(t,o=80,c=80)=>`https://placehold.co/${o}x${c}/f6f6f7/6d7175?text=${encodeURIComponent(t)}`},SHOPIFY:{CDN_BASE_URL:"https://cdn.shopify.com/",FONTS_URL:"https://cdn.shopify.com/static/fonts/inter/v4/styles.css"}};export{s as A};
