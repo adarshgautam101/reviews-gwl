@@ -2,7 +2,7 @@
 
 client_id = "8973433047eddaada0c289dc7d8be87f"
 name = "GWL Reviews"
-application_url = "https://123reviewsss-gwl-production.up.railway.app/"
+application_url = "https://reviews-gwl-production.up.railway.app/"
 embedded = true
 handle = "gwl-reviews"
 
@@ -26,15 +26,15 @@ scopes = "write_products,read_products,write_files,read_files"
 
 [auth]
 redirect_urls = [
-  "https://123reviewsss-gwl-production.up.railway.app/app/auth/callback",
-  "https://123reviewsss-gwl-production.up.railway.app/app/auth/shopify/callback",
-  "https://123reviewsss-gwl-production.up.railway.app/api/auth/callback",
-  "https://123reviewsss-gwl-production.up.railway.app/auth/callback",
-  "https://123reviewsss-gwl-production.up.railway.app/auth/shopify/callback"
+  "https://reviews-gwl-production.up.railway.app/app/auth/callback",
+  "https://reviews-gwl-production.up.railway.app/app/auth/shopify/callback",
+  "https://reviews-gwl-production.up.railway.app/api/auth/callback",
+  "https://reviews-gwl-production.up.railway.app/auth/callback",
+  "https://reviews-gwl-production.up.railway.app/auth/shopify/callback"
 ]
 
 [app_proxy]
-url = "https://123reviewsss-gwl-production.up.railway.app"
+url = "https://reviews-gwl-production.up.railway.app/"
 subpath = "productreview"
 prefix = "apps"
 
