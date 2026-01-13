@@ -23,9 +23,9 @@ export default function App() {
     <div className={styles.index}>
       <div className={styles.content}>
         <header className={styles.hero}>
-          <h1 className={styles.heading}>Elevate Your Customer Experience</h1>
+          <h1 className={styles.heading}>Customer Reviews App</h1>
           <p className={styles.text}>
-            The all-in-one review platform designed to build trust, boost conversions, and grow your brand with authentic customer feedback.
+            Easily collect and display customer reviews on your store.
           </p>
         </header>
 
@@ -38,15 +38,12 @@ export default function App() {
                   className={styles.input}
                   type="text"
                   name="shop"
-                  placeholder="my-shop.myshopify.com"
+                  placeholder="example.myshopify.com"
                   required
                 />
-                <span style={{ fontSize: '0.75rem', marginTop: '4px' }}>
-                  Enter your Shopify store URL to get started
-                </span>
               </label>
               <button className={styles.button} type="submit">
-                Install & Get Started
+                Log in
               </button>
             </Form>
           </div>
@@ -54,20 +51,19 @@ export default function App() {
 
         <ul className={styles.list}>
           <li className={styles.featureItem}>
-            <strong>Smart Review Widgets</strong>
-            <p>Beautiful, customizable widgets that match your brand perfectly and look great on any device.</p>
+            <strong>Easy Setup</strong>
+            <p>Install the app and start collecting reviews in minutes.</p>
           </li>
           <li className={styles.featureItem}>
-            <strong>Automated Requests</strong>
-            <p>Send perfectly timed review requests via email or SMS to maximize your response rates.</p>
+            <strong>Review Widgets</strong>
+            <p>Display reviews beautifully on your product pages.</p>
           </li>
           <li className={styles.featureItem}>
-            <strong>Photo & Video Reviews</strong>
-            <p>Let your customers tell their story with rich media that builds unbeatable social proof.</p>
+            <strong>Auto Requests</strong>
+            <p>Automatically ask customers for reviews after purchase.</p>
           </li>
         </ul>
       </div>
     </div>
   );
 }
-

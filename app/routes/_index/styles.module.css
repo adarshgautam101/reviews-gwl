@@ -1,11 +1,10 @@
 :root {
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-color: #ffffff;
+  --border-color: #e2e8f0;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
 }
 
 .index {
@@ -14,151 +13,131 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-gradient);
+  background-color: var(--bg-color);
   color: var(--text-main);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   padding: 40px 20px;
 }
 
 .content {
-  max-width: 1000px;
+  max-width: 800px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
+  gap: 48px;
 }
 
 .hero {
   text-align: center;
-  max-width: 700px;
 }
 
 .heading {
-  font-size: clamp(2.5rem, 8vw, 4rem);
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 24px;
-  background: linear-gradient(to right, #fff, #94a3b8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-main);
 }
 
 .text {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .loginCard {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  padding: 40px;
-  border-radius: 24px;
+  background: white;
+  border: 1px solid var(--border-color);
+  padding: 32px;
+  border-radius: 12px;
   width: 100%;
-  max-width: 450px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .label {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: var(--text-main);
 }
 
 .input {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 12px 16px;
-  color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px 12px;
   font-size: 1rem;
-  transition: all 0.2s;
+  transition: border-color 0.2s;
 }
 
 .input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
 .button {
   background: var(--primary);
   color: white;
   border: none;
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: 6px;
+  padding: 12px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background-color 0.2s;
 }
 
 .button:hover {
   background: var(--primary-hover);
-  transform: translateY(-1px);
-}
-
-.button:active {
-  transform: translateY(0);
 }
 
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
   width: 100%;
   list-style: none;
   padding: 0;
 }
 
 .featureItem {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  padding: 32px;
-  border-radius: 20px;
-  transition: transform 0.3s ease;
-}
-
-.featureItem:hover {
-  transform: translateY(-8px);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 8px;
+  text-align: left;
 }
 
 .featureItem strong {
   display: block;
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-  color: white;
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+  color: var(--text-main);
 }
 
 .featureItem p {
   color: var(--text-muted);
-  line-height: 1.5;
+  font-size: 0.9375rem;
+  line-height: 1.4;
   margin: 0;
 }
 
 @media (max-width: 640px) {
-  .index {
-    padding: 20px;
-  }
-
-  .loginCard {
-    padding: 24px;
+  .heading {
+    font-size: 2rem;
   }
 
   .content {
-    gap: 40px;
+    gap: 32px;
   }
 }
