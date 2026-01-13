@@ -22,37 +22,52 @@ export default function App() {
   return (
     <div className={styles.index}>
       <div className={styles.content}>
-        <h1 className={styles.heading}>A short heading about [your app]</h1>
-        <p className={styles.text}>
-          A tagline about [your app] that describes your value proposition.
-        </p>
+        <header className={styles.hero}>
+          <h1 className={styles.heading}>Elevate Your Customer Experience</h1>
+          <p className={styles.text}>
+            The all-in-one review platform designed to build trust, boost conversions, and grow your brand with authentic customer feedback.
+          </p>
+        </header>
+
         {showForm && (
-          <Form className={styles.form} method="post" action="/auth/login">
-            <label className={styles.label}>
-              <span>Shop domain</span>
-              <input className={styles.input} type="text" name="shop" />
-              <span>e.g: my-shop-domain.myshopify.com</span>
-            </label>
-            <button className={styles.button} type="submit">
-              Log in
-            </button>
-          </Form>
+          <div className={styles.loginCard}>
+            <Form className={styles.form} method="post" action="/auth/login">
+              <label className={styles.label}>
+                <span>Shop Domain</span>
+                <input
+                  className={styles.input}
+                  type="text"
+                  name="shop"
+                  placeholder="my-shop.myshopify.com"
+                  required
+                />
+                <span style={{ fontSize: '0.75rem', marginTop: '4px' }}>
+                  Enter your Shopify store URL to get started
+                </span>
+              </label>
+              <button className={styles.button} type="submit">
+                Install & Get Started
+              </button>
+            </Form>
+          </div>
         )}
+
         <ul className={styles.list}>
-          <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+          <li className={styles.featureItem}>
+            <strong>Smart Review Widgets</strong>
+            <p>Beautiful, customizable widgets that match your brand perfectly and look great on any device.</p>
           </li>
-          <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+          <li className={styles.featureItem}>
+            <strong>Automated Requests</strong>
+            <p>Send perfectly timed review requests via email or SMS to maximize your response rates.</p>
           </li>
-          <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+          <li className={styles.featureItem}>
+            <strong>Photo & Video Reviews</strong>
+            <p>Let your customers tell their story with rich media that builds unbeatable social proof.</p>
           </li>
         </ul>
       </div>
     </div>
   );
 }
+
