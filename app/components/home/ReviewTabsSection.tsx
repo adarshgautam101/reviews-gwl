@@ -39,6 +39,7 @@ interface ReviewTabsSectionProps {
     getGidProductId: (numericId: string) => string;
     getProductTitleFromNumericId: (numericId: string) => string;
     getProductImageFromNumericId: (numericId: string) => string | null;
+    onReviewsUpdate?: () => void;
 }
 
 export function ReviewTabsSection({
@@ -64,7 +65,8 @@ export function ReviewTabsSection({
     getNumericProductId,
     getGidProductId,
     getProductTitleFromNumericId,
-    getProductImageFromNumericId
+    getProductImageFromNumericId,
+    onReviewsUpdate
 }: ReviewTabsSectionProps) {
     const [popoverActive, setPopoverActive] = useState(false);
 
@@ -109,7 +111,7 @@ export function ReviewTabsSection({
                         <Box padding="500">
                             {reviews.length > 0 ? (
                                 <>
-                                    <ReviewList reviews={reviews} actionSource="individual" />
+                                    <ReviewList reviews={reviews} actionSource="individual" onReviewsUpdate={onReviewsUpdate} />
                                     {pageCount > 1 && (
                                         <Box paddingBlockStart="400" paddingBlockEnd="200">
                                             <InlineStack align="center">
@@ -154,7 +156,7 @@ export function ReviewTabsSection({
                         <Divider />
                         <Box padding="500">
                             {sortedProductSummaries.length > 0 ? (
-                                <ProductOverviewTable productSummaries={sortedProductSummaries} actionSource="individual" />
+                                <ProductOverviewTable productSummaries={sortedProductSummaries} actionSource="individual" onReviewsUpdate={onReviewsUpdate} />
                             ) : (<Text as="p">No products with reviews yet.</Text>)}
                         </Box>
                     </BlockStack>
@@ -186,7 +188,7 @@ export function ReviewTabsSection({
                             <Divider />
                             <Box padding="500">
                                 {allReviewsForProduct.length > 0 ? (
-                                    <ReviewList reviews={allReviewsForProduct} actionSource="bundle" />
+                                    <ReviewList reviews={allReviewsForProduct} actionSource="bundle" onReviewsUpdate={onReviewsUpdate} />
                                 ) : (<Text as="p">No reviews found for this product.</Text>)}
                             </Box>
                         </BlockStack>

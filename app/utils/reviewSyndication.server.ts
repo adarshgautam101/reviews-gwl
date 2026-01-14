@@ -232,11 +232,17 @@ export async function removeSyndicatedReviews(originalReviewId: string) {
 
 export async function updateSyndicatedReviewsStatus(originalReviewId: string, status: string) {
   try {
+    // First, update the original review
+    await db.productReview.update({
+      where: { id: originalReviewId },
+      data: { status: status }
+    });
+
     const syndicationEntries = await (db as any).reviewSyndication.findMany({
       where: { originalReviewId: originalReviewId }
     });
 
-    let updatedCount = 0;
+    let updatedCount = 1; // Start with 1 for the original review
 
     for (const entry of syndicationEntries) {
       try {

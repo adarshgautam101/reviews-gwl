@@ -1,6 +1,6 @@
 import { Box, BlockStack, InlineError, Text } from "@shopify/polaris";
 import { useSubmit, useFetcher } from "@remix-run/react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import EditReviewModal from "./EditReviewModal";
 import DeleteReviewModal from "./DeleteReviewModal";
 import ReviewCard from "./ReviewCard";
@@ -51,20 +51,30 @@ export default function ReviewList({
   const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [deletingReview, setDeletingReview] = useState<Review | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const lastProcessedFetcherKey = useRef<string | null>(null);
 
   useEffect(() => {
     const data = fetcher.data as any;
-    if (fetcher.state === "idle" && data) {
+    const fetcherKey = `${fetcher.state}-${JSON.stringify(data)}`;
+
+    // Only process if this is a new fetcher response we haven't seen before
+    // This prevents stale success responses from closing newly opened modals
+    if (fetcher.state === "idle" && data && fetcherKey !== lastProcessedFetcherKey.current) {
+      lastProcessedFetcherKey.current = fetcherKey;
+
       if (data.success) {
         setError(null);
 
-        if (editingReview) {
-          setEditingReview(null);
-        }
-        if (deletingReview) {
-          setDeletingReview(null);
-        }
-        if (onReviewsUpdate) {
+        // Clear modal states immediately before triggering parent update
+        // This prevents stale state from being used in subsequent operations
+        const wasEditing = !!editingReview;
+        const wasDeleting = !!deletingReview;
+
+        setEditingReview(null);
+        setDeletingReview(null);
+
+        // Only trigger parent update after state is cleared
+        if (onReviewsUpdate && (wasEditing || wasDeleting)) {
           setTimeout(onReviewsUpdate, 100);
         }
       } else if (data.error) {
@@ -107,6 +117,11 @@ export default function ReviewList({
   }, []);
 
   const handleDelete = useCallback((review: Review) => {
+    // Ensure we have a valid review with an ID before setting deletion state
+    if (!review || !review.id) {
+      console.error('Attempted to delete invalid review:', review);
+      return;
+    }
     setDeletingReview(review);
     setError(null);
   }, []);
@@ -125,12 +140,16 @@ export default function ReviewList({
   }, [editingReview, fetcher, actionSource]);
 
   const handleDeleteConfirm = useCallback(() => {
-    if (!deletingReview) return;
+    // Defensive check: ensure deletingReview is still valid
+    if (!deletingReview || !deletingReview.id) {
+      console.warn('Delete confirmation called with invalid review state');
+      setDeletingReview(null);
+      return;
+    }
 
     const formData = new FormData();
     formData.append("intent", "delete");
     formData.append("actionSource", actionSource);
-
     formData.append("reviewId", deletingReview.id);
 
     fetcher.submit(formData, {

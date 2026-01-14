@@ -31,11 +31,13 @@ export interface ProductSummary {
 interface ProductOverviewTableProps {
   productSummaries: ProductSummary[];
   actionSource?: 'bundle' | 'individual';
+  onReviewsUpdate?: () => void;
 }
 
 export default function ProductOverviewTable({
   productSummaries,
-  actionSource = 'individual'
+  actionSource = 'individual',
+  onReviewsUpdate
 }: ProductOverviewTableProps) {
   const [activeModal, setActiveModal] = useState(false);
   const [selectedProductReviews, setSelectedProductReviews] = useState<Review[]>([]);
@@ -49,10 +51,14 @@ export default function ProductOverviewTable({
   }, []);
 
   const handleModalClose = useCallback(() => {
+    // Trigger data refresh before closing the modal
+    if (onReviewsUpdate) {
+      onReviewsUpdate();
+    }
     setActiveModal(false);
     setSelectedProductReviews([]);
     setSelectedProductName('');
-  }, []);
+  }, [onReviewsUpdate]);
 
   const getPendingReviewsCount = (reviews: Review[]) => {
     return reviews.filter(review => review.status === 'pending').length;

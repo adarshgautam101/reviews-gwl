@@ -321,7 +321,7 @@ export default function HomePage() {
     isSubmitting, isExporting, isImporting, isDownloadingSample, pageCount, hasNext, hasPrevious,
     handlePageChange, handleFileChange, handleRemoveFile, toggleActiveToast,
     handleExportCSV, handleDownloadSampleCSV, handleImportCSV,
-    handleTabChange, handleSortChange,
+    handleTabChange, handleSortChange, handleRevalidate,
     setSelectedBundleId, setSelectedProductId, setActiveToast
   } = useHomeDashboard();
 
@@ -398,6 +398,7 @@ export default function HomePage() {
               getGidProductId={getGidProductId}
               getProductTitleFromNumericId={getProductTitleFromNumericId}
               getProductImageFromNumericId={getProductImageFromNumericId}
+              onReviewsUpdate={handleRevalidate}
             />
           </Layout.Section>
         </Layout>

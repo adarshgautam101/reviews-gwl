@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useLoaderData, useSearchParams, useNavigate, useActionData, useSubmit, useNavigation, useFetcher } from "@remix-run/react";
+import { useLoaderData, useSearchParams, useNavigate, useActionData, useSubmit, useNavigation, useFetcher, useRevalidator } from "@remix-run/react";
 import { Review } from "../components/ReviewList";
 import { ProductSummary } from "../components/ProductOverviewTable";
 
@@ -38,6 +38,7 @@ export function useHomeDashboard() {
     const navigate = useNavigate();
     const submit = useSubmit();
     const navigation = useNavigation();
+    const revalidator = useRevalidator();
 
     const exportFetcher = useFetcher<ActionData>();
     const importFetcher = useFetcher<ActionData>();
@@ -171,6 +172,10 @@ export function useHomeDashboard() {
         setSortOption(value);
     }, []);
 
+    const handleRevalidate = useCallback(() => {
+        revalidator.revalidate();
+    }, [revalidator]);
+
     return {
         reviews, totalReviews, averageRating, currentPage, reviewsPerPage,
         productSummaries, bundles, shopifyProducts,
@@ -179,7 +184,7 @@ export function useHomeDashboard() {
         isSubmitting, isExporting, isImporting, isDownloadingSample, pageCount, hasNext, hasPrevious,
         handlePageChange, handleFileChange, handleRemoveFile, toggleActiveToast,
         handleExportCSV, handleDownloadSampleCSV, handleImportCSV,
-        handleTabChange, handleSortChange,
+        handleTabChange, handleSortChange, handleRevalidate,
         setSelectedBundleId, setSelectedProductId, setActiveToast
     };
 }
