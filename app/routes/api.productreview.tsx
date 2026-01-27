@@ -124,7 +124,6 @@ export async function action({ request }: ActionFunctionArgs) {
       const { admin } = await shopify.unauthenticated.admin(shopDomain);
       await calculateAndUpdateProductMetafields(productId, admin, shopDomain);
     } catch (metafieldError: any) {
-      // console.error("Metafield update failed:", metafieldError);
     }
 
     return new Response(
@@ -140,7 +139,6 @@ export async function action({ request }: ActionFunctionArgs) {
       { status: 201 }
     );
   } catch (error: any) {
-    // console.error("Action failed:", error);
     return new Response(
       JSON.stringify({
         error: "Failed to submit review. Please try again."

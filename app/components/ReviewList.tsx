@@ -119,7 +119,6 @@ export default function ReviewList({
   const handleDelete = useCallback((review: Review) => {
     // Ensure we have a valid review with an ID before setting deletion state
     if (!review || !review.id) {
-      console.error('Attempted to delete invalid review:', review);
       return;
     }
     setDeletingReview(review);
@@ -142,7 +141,6 @@ export default function ReviewList({
   const handleDeleteConfirm = useCallback(() => {
     // Defensive check: ensure deletingReview is still valid
     if (!deletingReview || !deletingReview.id) {
-      console.warn('Delete confirmation called with invalid review state');
       setDeletingReview(null);
       return;
     }

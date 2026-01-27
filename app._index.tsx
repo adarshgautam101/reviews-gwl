@@ -107,7 +107,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     });
 
   } catch (error) {
-    console.error("Error fetching data in GWL Hub loader:", error);
     return json({
       reviews: [],
       totalReviews: 0,
@@ -159,7 +158,6 @@ export async function action({ request }: ActionFunctionArgs) {
         fileName: `reviews-export-${new Date().toISOString().split('T')[0]}.csv`
       });
     } catch (error) {
-      console.error('Export error:', error);
       return json({ success: false, error: 'Failed to export reviews' }, { status: 500 });
     }
   }
@@ -294,7 +292,6 @@ gid://shopify/Product/987654321,3,Bob Wilson,bob@example.com,"Average product","
           });
           importedReviews.push(newReview);
         } catch (error) {
-          console.error(`Failed to import review on line ${i + 1}:`, error);
         }
       }
 
@@ -314,7 +311,6 @@ gid://shopify/Product/987654321,3,Bob Wilson,bob@example.com,"Average product","
       });
 
     } catch (error) {
-      console.error('Import error:', error);
       return json({ success: false, error: 'Failed to import file. Please ensure it is a valid CSV or Excel file.' }, { status: 500 });
     }
   }

@@ -66,12 +66,21 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
     if (actionSource === 'bundle' && bundleConfig) {
       if (status === 'approved') {
-        const isFirstTimeApproval = await isFirstApproval(reviewId);
+        // Always use the original review ID for syndication operations
+        const originalReviewId = bundleInfo.isSyndicated
+          ? await findOriginalReviewId(reviewId)
+          : reviewId;
+
+        if (!originalReviewId) {
+          return json({ error: "Could not find original review ID" }, { status: 500 });
+        }
+
+        const isFirstTimeApproval = await isFirstApproval(originalReviewId);
 
         if (isFirstTimeApproval) {
-          await syndicateReviewToBundle(reviewId, bundleConfig.id, shop);
+          await syndicateReviewToBundle(originalReviewId, bundleConfig.id, shop);
         } else {
-          await updateSyndicatedReviewsStatus(reviewId, 'approved');
+          await updateSyndicatedReviewsStatus(originalReviewId, 'approved');
         }
 
         await db.productReview.update({
@@ -128,7 +137,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json({ success: true, message: `Review status updated to ${status}.` });
 
   } catch (error) {
-    // console.error(` Failed to update review status for ID ${reviewId}:`, error);
     return json({ error: "Failed to update review status." }, { status: 500 });
   }
 }

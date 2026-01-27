@@ -1,8 +1,8 @@
 // app/routes/api.reviews.tsx
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import db from "../db.server"; 
-import { authenticate } from "../shopify.server"; 
+import db from "../db.server";
+import { authenticate } from "../shopify.server";
 
 export async function action({ request }: ActionFunctionArgs) {
   if (request.method !== "POST") {
@@ -10,7 +10,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
-    const { session } = await authenticate.admin(request); 
+    const { session } = await authenticate.admin(request);
 
     if (!session || !session.shop) {
       return json({ error: "Shop session not found. Please log in." }, { status: 401 });
@@ -37,8 +37,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
     const review = await db.review.create({
       data: {
-       
-        shopId: session.shop, 
+
+        shopId: session.shop,
         title,
         content,
         rating: parsedRating,
@@ -53,7 +53,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return json({ message: "Review submitted successfully!", review }, { status: 201 });
   } catch (error: any) {
-    console.error("Error submitting review:", error);
     if (error instanceof Response) {
       throw error;
     }
@@ -73,18 +72,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
     const reviews = await db.review.findMany({
       where: {
-     
-        shopId: session.shop, 
+
+        shopId: session.shop,
       },
       orderBy: {
 
-        date: 'desc' 
+        date: 'desc'
       }
     });
 
-    return json(reviews); 
+    return json(reviews);
   } catch (error: any) {
-    console.error("Error in /api/reviews loader:", error);
 
     if (error instanceof Response) {
       throw error;

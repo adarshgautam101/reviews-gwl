@@ -54,13 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.documentElement.style.setProperty('--app-star-color', currentAppStarColor);
                 document.documentElement.style.setProperty('--app-star-color-darken', currentAppStarColorDarken);
 
-            } else {
-                console.warn('Star color not found in app settings API response. Using default.');
             }
         })
         .catch(error => {
-            console.error('Error fetching app settings for star color:', error);
-
         })
         .finally(() => {
 
@@ -172,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function loadReviews() {
         if (!productId || !reviewsList) {
-            console.warn("Product ID or reviews container not found, cannot load reviews.");
             if (reviewsList) {
                 reviewsList.innerHTML = `<p class="no-reviews">No reviews yet</p>`;
             }
@@ -238,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         } catch (error) {
-            console.error("Error loading reviews:", error);
             if (reviewsList) {
                 reviewsList.innerHTML = `<p class="error-reviews">Could not load reviews.</p>`;
             }
@@ -246,8 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
             starRatingBlock.classList.add('loaded');
         }
     }
-    // loadReviews() is now called inside the .finally() block of the fetch request
-    // to ensure app settings (color) are loaded first.
+
 
 
     if (prevPageButton) {
@@ -396,11 +389,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                     }
                     if (!allowedTypes.includes(file.type)) {
-                        console.warn(`Skipping ${file.name}: Only JPG, PNG, GIF allowed.`);
                         continue;
                     }
                     if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-                        console.warn(`Skipping ${file.name}: File size exceeds ${MAX_FILE_SIZE_MB}MB.`);
                         continue;
                     }
                     tempSelectedFiles.push(file);
@@ -499,7 +490,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 loadReviews();
 
             } catch (error) {
-                console.error('Submission error:', error);
                 if (submissionMessageModal) {
                     submissionMessageModal.querySelector('.submission-message-title').textContent = 'Submission Failed!';
                     submissionMessageModal.querySelector('.submission-message-title').style.color = '#dc3545';

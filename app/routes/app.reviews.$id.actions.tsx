@@ -63,7 +63,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
         return json({ error: "Invalid intent" }, { status: 400 });
     }
   } catch (error) {
-    // console.error("Error processing action:", error);
     return json({
       error: `Failed to process request: ${error instanceof Error ? error.message : 'Unknown error'}`
     }, { status: 500 });
@@ -109,7 +108,7 @@ async function handleDeleteReview(
 
   const uniqueProductsToUpdate = Array.from(new Set(productsToRecalculate)).filter(id => id && id !== 'undefined');
 
-  console.log(`[Review Deletion] Updating metafields for ${uniqueProductsToUpdate.length} products:`, uniqueProductsToUpdate);
+
 
   const metafieldResults = [];
   for (const id of uniqueProductsToUpdate) {
@@ -117,9 +116,7 @@ async function handleDeleteReview(
     metafieldResults.push({ productId: id, ...result });
 
     if (!result.success) {
-      // console.error(`[Review Deletion] ⚠️ Metafield update failed for product ${id}:`, result.error);
     } else {
-      // console.log(`[Review Deletion] ✅ Metafield updated for product ${id}: Rating=${result.rating}, Count=${result.count}`);
     }
   }
 
@@ -212,7 +209,7 @@ async function handleEditReview(
 
     const uniqueProductsToUpdate = Array.from(new Set(productsToUpdate)).filter(id => id && id !== 'undefined');
 
-    // console.log(`[Review Edit] Updating metafields for ${uniqueProductsToUpdate.length} products:`, uniqueProductsToUpdate);
+
 
     const metafieldResults = [];
     for (const id of uniqueProductsToUpdate) {
@@ -220,9 +217,7 @@ async function handleEditReview(
       metafieldResults.push({ productId: id, ...result });
 
       if (!result.success) {
-        // console.error(`[Review Edit] ⚠️ Metafield update failed for product ${id}:`, result.error);
       } else {
-        // console.log(`[Review Edit] ✅ Metafield updated for product ${id}: Rating=${result.rating}, Count=${result.count}`);
       }
     }
 
@@ -239,7 +234,6 @@ async function handleEditReview(
     });
 
   } catch (error) {
-    // console.error("Error in edit transaction:", error);
     return json({ error: `Failed to update review: ${error instanceof Error ? error.message : 'Unknown error'}` }, { status: 500 });
   }
 }

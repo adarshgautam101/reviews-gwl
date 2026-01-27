@@ -18,7 +18,6 @@ export async function checkProductExists(productId: string, admin: any): Promise
         const data = await response.json();
         return !!data.data?.product;
     } catch (error) {
-        console.error(`Error checking product ${productId}:`, error);
         return false;
     }
 }

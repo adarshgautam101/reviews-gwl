@@ -9,7 +9,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const shop = url.searchParams.get("shop");
 
     if (!shop) {
-      // console.error("Missing shop parameter in api.settings");
       return json({ error: "Missing shop parameter" }, { status: 400 });
     }
 
@@ -18,7 +17,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     });
 
     if (!appSettings) {
-      // console.log(`No settings found for shop: ${shop}, returning defaults`);
       return json({
         starColor: APP_CONFIG.SETTINGS_DEFAULTS.STAR_COLOR,
         backgroundColor: APP_CONFIG.SETTINGS_DEFAULTS.BACKGROUND_COLOR,
@@ -123,7 +121,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     });
 
   } catch (error) {
-    // console.error("Error fetching app settings for theme:", error);
     return json({
       starColor: APP_CONFIG.SETTINGS_DEFAULTS.STAR_COLOR,
       backgroundColor: APP_CONFIG.SETTINGS_DEFAULTS.BACKGROUND_COLOR,

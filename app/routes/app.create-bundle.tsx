@@ -131,7 +131,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return json({ success: false, error: "Invalid intent or missing data." }, { status: 400 });
   } catch (error: any) {
-    console.error("Error managing bundle:", error);
     if (error.code === 'P2002') {
       return json({ success: false, error: `Bundle creation failed. The name or the selected main product might already be in use.` }, { status: 409 });
     }
